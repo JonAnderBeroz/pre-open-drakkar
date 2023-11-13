@@ -2,40 +2,16 @@
 
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {Dispatch, SetStateAction, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
 
 import {teko} from "@/fonts";
 import Menu from "@/icons/menu";
 
 import X from "@/icons/x";
 
-import Logo from "../logo";
+import {links} from "@/links";
 
-const links: {
-  url: string;
-  content: string;
-}[] = [
-  {
-    url: "/clasificacion",
-    content: "Clasificacíon",
-  },
-  {
-    url: "/wod/1",
-    content: "Wod 1",
-  },
-  {
-    url: "/wod/2",
-    content: "Wod 2",
-  },
-  {
-    url: "/wod/3",
-    content: "Wod 3",
-  },
-  {
-    url: "/puntuacion",
-    content: "Añadir puntuación",
-  },
-];
+import Logo from "../logo";
 
 export function SideBard({
   visible,
@@ -78,37 +54,45 @@ export function SideBard({
   );
 }
 
+export function NavBar({path}: {path: string}) {
+  return (
+    <nav className="hidden flex-row gap-5 md:flex items-center px-5 bg-[#050808]/75 h-full backdrop-blur-lg rounded-lg text-white">
+      {links.map(({url, content}, i) => (
+        <Link
+          key={i}
+          className={`relative font-semibold md:text-lg lg:text-2xl ${
+            teko.className
+          }  after:bg-white ${
+            url === path ? "after:w-full" : "after:w-0"
+          } after:left-0 after:-bottom-[0.15rem] after:rounded-xl after:h-[3px] after:absolute hover:after:w-full after:transition-all`}
+          href={url}
+        >
+          {content}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
 export default function Header() {
   const [visible, setVisible] = useState<boolean>(false);
   const path = usePathname();
-
-  console.log(path);
   const openSidebar = () => {
     setVisible(true);
   };
 
+  useEffect(() => {
+    setVisible(false);
+  }, [path]);
+
   return (
     <>
-      <header className="flex flex-row md:gap-5 items-center justify-center md:justify-start pl-2 pt-5">
+      <header className="flex flex-row md:gap-5 items-center justify-center md:justify-start px-4 pt-5">
         <button className="block md:hidden" type="button" onClick={openSidebar}>
           <Menu />
         </button>
         <Logo />
-        <nav className="hidden flex-row gap-5 md:flex items-center px-5 bg-[#050808]/75 h-full backdrop-blur-lg rounded-lg text-white">
-          {links.map(({url, content}, i) => (
-            <Link
-              key={i}
-              className={`relative font-semibold md:text-xl lg:text-2xl ${
-                teko.className
-              }  after:bg-white ${
-                url === path ? "after:w-full" : "after:w-0"
-              } after:left-0 after:-bottom-[0.15rem] after:rounded-xl after:h-[3px] after:absolute hover:after:w-full after:transition-all`}
-              href={url}
-            >
-              {content}
-            </Link>
-          ))}
-        </nav>
+        <NavBar path={path} />
       </header>
       <SideBard setVisible={setVisible} visible={visible} />
     </>
