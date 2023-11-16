@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Wod {
+  id       String  @id @default(uuid())
+  score    Score[]
+  name     String  @default("23.-")
+  elements String  @default("")
+  type     String  @default("")
+}
+
+model Team {
+  id           String        @id @default(uuid())
+  name         String        @default("-")
+  participants Participant[]
+  scores       Score[]
+}
+
+model Participant {
+  id        String @id @default(uuid())
+  team      Team   @relation(fields: [team_id], references: [id])
+  team_id   String
+  full_name String
+}
+
+model Score {
+  id      String @id @default(uuid())
+  wod     Wod    @relation(fields: [wod_id], references: [id])
+  team    Team   @relation(fields: [team_id], references: [id])
+  wod_id  String
+  team_id String
+  score   Int    @default(0)
+}
