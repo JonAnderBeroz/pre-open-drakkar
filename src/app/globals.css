@@ -8,3 +8,11 @@
   background-color: Canvas;
 }
 
+select.wod-selector::part(listbox) {
+  margin-top: 5px;
+  font-size: inherit ;
+  font-family: inherit;
+  border: none;
+  border-radius: 8px;
+}
+

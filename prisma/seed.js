@@ -12,8 +12,18 @@ const wod2Id = randomUUID();
 
 data = {
   wods: [
-    {id: wod1Id, name: "23.1"},
-    {id: wod2Id, name: "23.2"},
+    {
+      id: wod1Id,
+      name: "23.1",
+      type: "amrap",
+      elements: "1000m row, 60 bjo, 10reps w. lunges 2db, 60 t2b, max cal row",
+    },
+    {
+      id: wod2Id,
+      name: "23.2",
+      type: "for time",
+      elements: "45 wb, 30 clean, 30 wb, 20 clean, 15 wb, 10 clean",
+    },
   ],
   teams: [
     {id: team1Id, name: "Team1"},
@@ -46,9 +56,9 @@ data = {
 };
 
 async function seed() {
-  await prisma.wod.deleteMany();
-  await prisma.score.deleteMany();
   await prisma.participant.deleteMany();
+  await prisma.score.deleteMany();
+  await prisma.wod.deleteMany();
   await prisma.team.deleteMany();
 
   await prisma.wod.createMany({

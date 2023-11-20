@@ -1,43 +1,29 @@
-import {sql} from "kysely";
+import {Query} from "./db/query";
+import {LeaderboardRecord, WodRecord} from "./db/types";
 
-import {db} from "@/db/database";
-import {Team} from "@/db/types";
+interface dbQuery {
+  getWodLeaderboard: (wod: number) => Promise<LeaderboardRecord[]>;
+  getOverallLeaderboard: () => Promise<LeaderboardRecord[]>;
+  getWodInfo: (wod: number) => Promise<WodRecord | undefined>;
+}
+
+const queries: dbQuery = Query;
 
 const api = {
   leaderboard: {
-    getOverall: async (): Promise<
-      {
-        id: string;
-        name: string;
-        members: string;
-        points: number;
-      }[]
-    > => {
-      return await db
-        .selectFrom("Participant")
-        .innerJoin("Team", "Team.id", "Participant.team_id")
-        .innerJoin(
-          (eb) =>
-            eb
-              .selectFrom("Score")
-              .select([
-                "team_id",
-                sql<number>`ROW_NUMBER() OVER (PARTITION BY wod_id ORDER BY score DESC)`.as(
-                  "position",
-                ),
-              ])
-              .as("ranked_score"),
-          (join) => join.onRef("ranked_score.team_id", "=", "Team.id"),
-        )
-        .select([
-          "Team.id",
-          "Team.name",
-          sql<string>`string_agg(DISTINCT full_name, ',')`.as("members"),
-          sql<number>`SUM(ranked_score.position)`.as("points"),
-        ])
-        .groupBy("Team.id")
-        .orderBy("points")
-        .execute();
+    get: async (wod: number): Promise<LeaderboardRecord[]> => {
+      if (wod > 0) {
+        return await queries.getWodLeaderboard(wod);
+      }
+
+      return await queries.getOverallLeaderboard();
+    },
+  },
+  wod: {
+    get: async (wod: number): Promise<WodRecord | undefined> => {
+      console.log("a");
+
+      return await queries.getWodInfo(wod);
     },
   },
 };

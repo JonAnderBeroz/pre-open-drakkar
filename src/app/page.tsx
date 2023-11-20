@@ -3,7 +3,7 @@ import {teko} from "@/fonts";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center gap-5 w-full h-full">
+    <main className="flex flex-col items-center justify-center gap-5 w-full h-full pt-5">
       <TextCard>
         <h1 className={`text-6xl ${teko.className} font-bold text-center`}>
           Pre <span className="text-white font-semibold">Open</span> <br /> Drakkar

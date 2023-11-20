@@ -43,3 +43,15 @@ export interface ScoreTable {
 export type Score = Selectable<ScoreTable>;
 export type NewScore = Insertable<ScoreTable>;
 export type ScoreUpdate = Updateable<ScoreTable>;
+
+export type LeaderboardRecord = {
+  id: string;
+  name: string;
+  members: string;
+  points: number;
+};
+
+export type WodRecord = {
+  type: string;
+  elements: string;
+};
