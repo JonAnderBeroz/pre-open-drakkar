@@ -27,7 +27,10 @@ export default async function Clasificacion({
           {ranking.map(({id, name, points, members}, i) => (
             <tr key={id} className="h-12">
               <td>{i + 1}</td>
-              <td>{`${name} (${members})`}</td>
+              <td>
+                {name}
+                <p className="hidden md:block">{`(${members})`}</p>
+              </td>
               <td>{points}</td>
             </tr>
           ))}

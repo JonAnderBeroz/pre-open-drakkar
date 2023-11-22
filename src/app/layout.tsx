@@ -12,7 +12,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
       <LayoutContainer>
-        <main className="w-full h-full p-10 flex flex-col">{children}</main>
+        <main className="w-full h-full md:p-10 p-2 flex flex-col">{children}</main>
       </LayoutContainer>
     </html>
   );

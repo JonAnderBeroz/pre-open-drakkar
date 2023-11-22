@@ -2,7 +2,7 @@ import {randomUUID} from "crypto";
 
 import api from "@/api";
 import Blackboard from "@/components/blackboard";
-import Countdown from "@/components/countdown";
+import Countdown from "@/components/countdown/countdown";
 
 export default async function Wod({params: {id}}: {params: {id: number}}) {
   const info = await api.wod.get(id);
