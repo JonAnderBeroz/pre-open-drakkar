@@ -12,7 +12,7 @@ export default function Filter({selectedWod}: {selectedWod: number}) {
 
   return (
     <select
-      className="text-black bg-white px-4 py-2 rounded-lg mb-5 wod-selector"
+      className="text-black bg-white px-4 py-2 rounded-lg mb-5 wod-selector mr-auto"
       value={selectedWod}
       onChange={selectionChanged}
     >

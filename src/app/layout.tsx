@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
-      <LayoutContainer>{children}</LayoutContainer>
+      <LayoutContainer>
+        <main className="w-full h-full p-10 flex flex-col">{children}</main>
+      </LayoutContainer>
     </html>
   );
 }

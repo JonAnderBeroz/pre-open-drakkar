@@ -21,8 +21,6 @@ const api = {
   },
   wod: {
     get: async (wod: number): Promise<WodRecord | undefined> => {
-      console.log("a");
-
       return await queries.getWodInfo(wod);
     },
   },

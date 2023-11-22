@@ -58,8 +58,6 @@ export const Query = {
       .execute();
   },
   getWodInfo: async (wod: number): Promise<WodRecord | undefined> => {
-    console.log(wod);
-
     return await db
       .selectFrom("Wod")
       .select(["Wod.type", "Wod.elements"])

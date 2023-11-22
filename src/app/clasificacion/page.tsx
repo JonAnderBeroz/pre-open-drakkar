@@ -13,7 +13,7 @@ export default async function Clasificacion({
   const ranking = await api.leaderboard.get(wod);
 
   return (
-    <main className="w-full h-full p-10">
+    <>
       <Filter selectedWod={wod} />
       <table className="w-full bg-white rounded-lg overflow-hidden table-fixed">
         <thead className={`bg-black text-white font-extrabold ${teko.className} text-2xl`}>
@@ -33,6 +33,6 @@ export default async function Clasificacion({
           ))}
         </tbody>
       </table>
-    </main>
+    </>
   );
 }
