@@ -1,13 +1,14 @@
 "use client";
 
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {ChangeEvent} from "react";
 
 export default function Filter({selectedWod}: {selectedWod: number}) {
   const router = useRouter();
+  const pathName = usePathname();
 
   function selectionChanged(e: ChangeEvent<HTMLSelectElement>) {
-    router.push(`/clasificacion?filter=${e.target.value}`);
+    router.replace(`${pathName}?filter=${e.target.value}`);
   }
 
   return (

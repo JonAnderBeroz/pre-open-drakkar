@@ -4,12 +4,8 @@ import {teko} from "@/fonts";
 
 import Filter from "./filter";
 
-export default async function Clasificacion({
-  searchParams,
-}: {
-  searchParams: {[key: string]: number | undefined};
-}) {
-  const wod = searchParams.filter ?? 0;
+export default async function Clasificacion({searchParams}: {searchParams?: {filter: number}}) {
+  const wod = searchParams?.filter || 0;
   const ranking = await api.leaderboard.get(wod);
 
   return (

@@ -1,4 +1,4 @@
-import TextCard from "@/components/text-card";
+import TextCard from "@/components/card";
 import {teko} from "@/fonts";
 
 export default function Home() {

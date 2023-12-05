@@ -1,4 +1,4 @@
-import TextCard from "@/components/text-card";
+import TextCard from "@/components/card";
 
 export default function TimeSection({children}: {children: React.ReactNode}) {
   return (

@@ -3,13 +3,17 @@ import {randomUUID} from "crypto";
 import api from "@/api";
 import Blackboard from "@/components/blackboard";
 import Countdown from "@/components/countdown/countdown";
+import config from "@/config";
 
-export default async function Wod({params: {id}}: {params: {id: number}}) {
-  const info = await api.wod.get(id);
+export default async function Wod({params: {id}}: {params: {id: string}}) {
+  const info = await api.wod.get(+id);
+  const getOpenDate = (id: number): Date => {
+    return config.wods.find((wod) => wod.id === id)?.openDate ?? new Date();
+  };
 
   return (
     <>
-      {false ? (
+      {getOpenDate(+id) < new Date() ? (
         <Blackboard>
           <h3>{`Wod 23.${id}`}</h3>
           <h4>{info?.type}</h4>
@@ -22,7 +26,7 @@ export default async function Wod({params: {id}}: {params: {id: number}}) {
           </article>
         </Blackboard>
       ) : (
-        <Countdown targetDate={new Date(2023, 10, 23, 12, 7)} />
+        <Countdown targetDate={getOpenDate(+id)} />
       )}
     </>
   );

@@ -1,4 +1,4 @@
-export default function TextCard({
+export default function Card({
   children,
   className = "p-10 md:w-[500px] w-[335px]",
 }: {
