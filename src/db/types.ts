@@ -50,8 +50,3 @@ export type LeaderboardRecord = {
   members: string;
   points: number;
 };
-
-export type WodRecord = {
-  type: string;
-  elements: string;
-};

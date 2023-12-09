@@ -18,7 +18,7 @@ export default async function Wod({params: {id}}: {params: {id: string}}) {
           <h3>{`Wod 23.${id}`}</h3>
           <h4>{info?.type}</h4>
           <article className="flex flex-col justify-between flex-1">
-            {info?.elements.split(",").map((el) => (
+            {info?.elements?.split(",").map((el) => (
               <p key={randomUUID()}>
                 <span className="font-semibold">*</span> {el.trim()}
               </p>

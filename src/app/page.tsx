@@ -17,7 +17,7 @@ export default function Home() {
       </TextCard>
       <a
         className="bg-[#050808]/90  text-white p-4 rounded-full text-lg font-semibold cursor-pointer hover:scale-105"
-        href="/"
+        href="/clasificacion"
       >
         Ver clasificación
       </a>
