@@ -1,3 +1,5 @@
+import {toast} from "react-hot-toast";
+
 import api from "@/api";
 import Card from "@/components/card";
 
@@ -7,7 +9,7 @@ export default async function Puntuacion() {
   const teams = await api.teams.getAll();
   const wods = await api.wod.getAll();
 
-  async function createScore(formData: FormData) {
+  async function createScore(formData: FormData): Promise<number> {
     "use server";
     const score = +formData.get("score")!.toString();
     const teamId = formData.get("teams")!.toString();
@@ -15,7 +17,9 @@ export default async function Puntuacion() {
 
     const res = await api.score.create(score, teamId, wodId);
 
-    console.log("Res", res);
+    if (res == 0) throw "Could not create score";
+
+    return res;
   }
 
   return (

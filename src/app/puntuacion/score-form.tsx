@@ -1,3 +1,7 @@
+"use client";
+
+import {Toaster, toast} from "react-hot-toast";
+
 import {Team, Wod} from "@/db/types";
 
 export default function ScoreForm({
@@ -5,10 +9,20 @@ export default function ScoreForm({
   action,
 }: {
   data: {teams: Team[]; wods: Partial<Wod>[]};
-  action: (formData: FormData) => void;
+  action: (formData: FormData) => Promise<number>;
 }) {
+  async function clientAction(formData: FormData) {
+    const promise = action(formData);
+
+    toast.promise(promise, {
+      loading: "Creando puntuación...",
+      success: "Puntuación creada 🎉",
+      error: "Error creando la puntuación",
+    });
+  }
+
   return (
-    <form action={action} className="flex flex-col gap-6">
+    <form action={clientAction} className="flex flex-col gap-6">
       <div>
         <label className="block mb-2 text-md font-semibold text-gray-900" htmlFor="teams">
           Selecciona tu equipo:
@@ -25,7 +39,6 @@ export default function ScoreForm({
           ))}
         </select>
       </div>
-
       <div>
         <label className="block mb-2 text-md font-semibold text-gray-900" htmlFor="wods">
           Selecciona el wod:
@@ -42,7 +55,6 @@ export default function ScoreForm({
           ))}
         </select>
       </div>
-
       <div>
         <label className="block mb-2 text-md font-semibold text-gray-900" htmlFor="score">
           Score:
